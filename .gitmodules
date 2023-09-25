@@ -1,0 +1,6 @@
+[submodule "modules/qtbase"]
+	path = modules/qtbase
+	url = https://code.qt.io/qt/qtbase.git
+[submodule "modules/jsoncpp"]
+	path = modules/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp.git
