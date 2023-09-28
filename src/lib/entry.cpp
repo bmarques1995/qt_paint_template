@@ -1,4 +1,5 @@
 #include "Window.hpp"
+#include "Painter.hpp"
 #include <QApplication>
 #include <cstdlib>
 #include <windows.h>
@@ -6,8 +7,12 @@
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
     QGuiApplication app(__argc, __argv);
-    Window window(960,540);
-    window.show();
+    Window* window = new Window(960,540);
+    window->show();
+    Painter* painter = new Painter(window);
+    painter->start();
 
-    return app.exec();
+    auto result = app.exec();
+
+    return result;
 }
