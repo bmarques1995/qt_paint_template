@@ -30,7 +30,7 @@ void Context::OnResize(uint32_t width, uint32_t height)
     locker.lock();
     m_Modifying = true;
     locker.unlock();
-    m_RenderTargetView.Reset();
+    m_RenderTargetView->Release();
     m_SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
     CreateRenderTarget();
     CreateViewport(width, height);

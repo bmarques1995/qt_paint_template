@@ -9,6 +9,7 @@ file(GLOB_RECURSE PROJ_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "./src/lib/*.cp
 
 find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
 find_package(JsonCpp REQUIRED)
+find_package(Eigen3 COMPONENTS Eigen REQUIRED)
 find_library(D3D11_TARGET NAMES d3d11 REQUIRED)
 
 qt_standard_project_setup()

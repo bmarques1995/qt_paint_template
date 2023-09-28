@@ -4,3 +4,6 @@
 [submodule "modules/jsoncpp"]
 	path = modules/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "modules/eigen3"]
+	path = modules/eigen3
+	url = https://gitlab.com/libeigen/eigen.git
