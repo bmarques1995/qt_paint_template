@@ -7,15 +7,17 @@ set(CMAKE_CXX_STANDARD 17)
 file(GLOB_RECURSE PROJ_HDRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "./src/include/*.hpp")
 file(GLOB_RECURSE PROJ_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "./src/lib/*.cpp")
 
-find_package(Qt6 COMPONENTS Core Gui Widgets OpenGL OpenGLWidgets REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
 find_package(JsonCpp REQUIRED)
+find_library(D3D11_TARGET NAMES d3d11 REQUIRED)
 
 qt_standard_project_setup()
 
-qt_add_executable(${PROJ_NAME} ${PROJ_HDRS} ${PROJ_SRCS})
+qt_add_executable(${PROJ_NAME} WIN32 ${PROJ_HDRS} ${PROJ_SRCS})
 target_include_directories(${PROJ_NAME} PRIVATE "./src/include" "./install/include")
 target_link_directories(${PROJ_NAME} PRIVATE "./install/lib")
-target_link_libraries(${PROJ_NAME} PRIVATE Qt6::Core Qt6::Gui d3d11 Qt6::Widgets Qt6::OpenGL Qt6::OpenGLWidgets JsonCpp::JsonCpp)
+target_compile_definitions(${PROJ_NAME} PRIVATE WIN32_LEAN_AND_MEAN)
+target_link_libraries(${PROJ_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets JsonCpp::JsonCpp d3d11)
 target_compile_definitions(${PROJ_NAME} PRIVATE QT_DEBUG_PLUGINS=1)
 
 add_custom_target(copy_dlls ALL

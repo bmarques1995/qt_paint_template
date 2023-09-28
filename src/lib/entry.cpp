@@ -1,10 +1,12 @@
 #include "Window.hpp"
 #include <QApplication>
+#include <cstdlib>
+#include <windows.h>
 
-int main(int argc, char* argv[])
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
-    QApplication app(argc, argv);
-    Window window;
+    QGuiApplication app(__argc, __argv);
+    Window window(960,540);
     window.show();
 
     return app.exec();
