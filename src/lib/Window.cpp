@@ -1,8 +1,37 @@
 #include "Window.hpp"
+#include <windows.h>
 
 Window::Window(uint32_t width, uint32_t height) :
 	QWindow()
 {
 	setWidth(width);
 	setHeight(height);
+}
+
+void Window::ConnectSignals()
+{
+}
+
+bool Window::event(QEvent* event)
+{
+    switch (event->type())
+    {
+    default:
+        return QWindow::event(event);
+    }
+}
+
+void Window::exposeEvent(QExposeEvent* event)
+{
+	Q_UNUSED(event);
+}
+
+void Window::resizeEvent(QResizeEvent* event)
+{
+	emit WindowResized(width(), height());
+}
+
+void Window::closeEvent(QCloseEvent* event)
+{
+	emit WindowClosed();
 }

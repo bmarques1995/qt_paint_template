@@ -25,16 +25,26 @@ void Context::Present()
 
 void Context::OnResize(uint32_t width, uint32_t height)
 {
+    std::mutex locker;
+    locker.lock();
+    m_Modifying = true;
+    locker.unlock();
     m_RenderTargetView.Reset();
     m_SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
     CreateRenderTarget();
     CreateViewport(width, height);
+    locker.lock();
+    m_Modifying = false;
+    locker.unlock();
 }
 
 void Context::ClearTarget()
 {
-    m_DeviceContext->OMSetRenderTargets(1, m_RenderTargetView.GetAddressOf(), NULL);
-    m_DeviceContext->ClearRenderTargetView(m_RenderTargetView.Get(), m_ClearColor);
+    if (!m_Modifying)
+    {
+        m_DeviceContext->OMSetRenderTargets(1, m_RenderTargetView.GetAddressOf(), NULL);
+        m_DeviceContext->ClearRenderTargetView(m_RenderTargetView.Get(), m_ClearColor);
+    }
 }
 
 void Context::SetClearColor(float r, float g, float b, float a)

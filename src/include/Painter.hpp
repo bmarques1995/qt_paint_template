@@ -2,16 +2,20 @@
 #define PAINTER_HPP
 
 #include <QThread>
-#include <QWindow>
+#include "Window.hpp"
 #include "Context.hpp"
+#include <QMutex>
 
 class Painter : public QThread
 {
+	Q_OBJECT
 public:
-	Painter(QWindow* windowTarget, QThread* render_thread = QThread::currentThread());
+	Painter(Window* windowTarget, QThread* render_thread = QThread::currentThread());
 	virtual ~Painter();
 
-	void ResizeSwapChain();
+public slots:
+	void WindowResized(uint32_t width, uint32_t height);
+	void WindowClosed();
 
 protected:
 	void run() override;
@@ -19,6 +23,8 @@ protected:
 private:
 	bool m_Running;
 	std::shared_ptr<Context> m_Context;
+
+	std::mutex m_Mutex;
 };
 
 #endif

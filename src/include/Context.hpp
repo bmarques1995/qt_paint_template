@@ -4,6 +4,8 @@
 #include <d3d11_4.h>
 #include <wrl.h>
 #include <cstdint>
+#include <thread>
+#include <mutex>
 
 using Microsoft::WRL::ComPtr;
 
@@ -32,6 +34,8 @@ private:
     void CreateViewport(uint32_t width, uint32_t height);
 
     float m_ClearColor[4];
+
+    bool m_Modifying = false;
 
     ComPtr<ID3D11Device> m_Device;
     ComPtr<ID3D11DeviceContext> m_DeviceContext;

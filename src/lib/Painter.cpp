@@ -1,9 +1,11 @@
 #include "Painter.hpp"
 #include <windows.h>
 
-Painter::Painter(QWindow* windowTarget, QThread* render_thread) :
+Painter::Painter(Window* windowTarget, QThread* render_thread) :
 	m_Running(true)
 {
+	connect(windowTarget, &Window::WindowResized, this, &Painter::WindowResized, Qt::AutoConnection);
+	connect(windowTarget, &Window::WindowClosed, this, &Painter::WindowClosed, Qt::AutoConnection);
 	uint32_t _width = windowTarget->width();
 	uint32_t _height = windowTarget->height();
 	HWND windowHandle = reinterpret_cast<HWND>(windowTarget->winId());
@@ -15,8 +17,21 @@ Painter::~Painter()
 {
 }
 
-void Painter::ResizeSwapChain()
+void Painter::WindowResized(uint32_t width, uint32_t height)
 {
+	if (m_Running)
+	{
+		m_Mutex.lock();
+		m_Context->OnResize(width, height);
+		m_Mutex.unlock();
+	}
+}
+
+void Painter::WindowClosed()
+{
+	m_Mutex.lock();
+	m_Running = false;
+	m_Mutex.unlock();
 }
 
 void Painter::run()

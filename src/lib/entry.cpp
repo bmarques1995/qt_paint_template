@@ -14,5 +14,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
     auto result = app.exec();
 
+    delete painter;
+    delete window;
+
     return result;
 }
