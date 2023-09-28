@@ -1,7 +1,8 @@
 #include "Context.hpp"
 #include <cassert>
 
-Context::Context(HWND windowHandle, uint32_t width, uint32_t height)
+Context::Context(HWND windowHandle, uint32_t width, uint32_t height) :
+    m_Modifying(false)
 {
     m_ClearColor[0] = .6f;
     m_ClearColor[1] = 1.0f;

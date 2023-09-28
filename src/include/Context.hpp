@@ -35,7 +35,7 @@ private:
 
     float m_ClearColor[4];
 
-    bool m_Modifying = false;
+    bool m_Modifying;
 
     ComPtr<ID3D11Device> m_Device;
     ComPtr<ID3D11DeviceContext> m_DeviceContext;
