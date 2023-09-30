@@ -8,9 +8,9 @@ file(GLOB_RECURSE PROJ_HDRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "./src/include/
 file(GLOB_RECURSE PROJ_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "./src/lib/*.cpp")
 
 find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
-find_package(JsonCpp REQUIRED)
+find_package(JsonCpp COMPONENTS  REQUIRED)
 find_package(Eigen3 COMPONENTS Eigen REQUIRED)
-find_library(D3D11_TARGET NAMES d3d11 REQUIRED)
+find_library(D3D11_TARGET NAMES d3d11 d3dcompiler REQUIRED)
 
 qt_standard_project_setup()
 
@@ -18,7 +18,7 @@ qt_add_executable(${PROJ_NAME} WIN32 ${PROJ_HDRS} ${PROJ_SRCS})
 target_include_directories(${PROJ_NAME} PRIVATE "./src/include" "./install/include")
 target_link_directories(${PROJ_NAME} PRIVATE "./install/lib")
 target_compile_definitions(${PROJ_NAME} PRIVATE WIN32_LEAN_AND_MEAN)
-target_link_libraries(${PROJ_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets JsonCpp::JsonCpp d3d11)
+target_link_libraries(${PROJ_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets jsoncpp d3d11 d3dcompiler)
 target_compile_definitions(${PROJ_NAME} PRIVATE QT_DEBUG_PLUGINS=1)
 
 add_custom_target(copy_dlls ALL

@@ -20,6 +20,10 @@ bool Window::event(QEvent* event)
     }
 }
 
+void Window::RecreateWindow()
+{
+}
+
 void Window::exposeEvent(QExposeEvent* event)
 {
 	Q_UNUSED(event);

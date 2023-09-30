@@ -12,9 +12,13 @@ public:
 	virtual ~Window() = default;
 
 	void ConnectSignals();
+
 signals:
 	void WindowResized(uint32_t width, uint32_t height);
 	void WindowClosed();
+
+public slots:
+	void RecreateWindow();
 
 private:
 	bool event(QEvent* event) override;
