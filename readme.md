@@ -1,1 +1,1 @@
-# Sample Qt D3D9 context
+# Sample Qt D3D11 context
